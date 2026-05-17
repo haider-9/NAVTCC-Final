@@ -1,7 +1,31 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build && composer install --optimize-autoloader --no-dev",
   "outputDirectory": "public",
   "env": {
-    "APP_ENV": "production"
-  }
+    "APP_ENV": "production",
+    "APP_DEBUG": "false"
+  },
+  "functions": {
+    "api/index.php": {
+      "runtime": "php-8.2"
+    }
+  },
+  "routes": [
+    {
+      "src": "/build/(.*)",
+      "dest": "/public/build/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/public/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/public/js/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
+    }
+  ]
 }
